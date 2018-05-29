@@ -1,0 +1,22 @@
+{
+  "name": "24before24_tracker",
+  "version": "1.0.0",
+  "description": "website to track my bucket list progress",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/MayankVachher/24before24_tracker.git"
+  },
+  "author": "Mayank Vachher",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/MayankVachher/24before24_tracker/issues"
+  },
+  "homepage": "https://github.com/MayankVachher/24before24_tracker#readme",
+  "dependencies": {
+    "bulma": "^0.7.1"
+  }
+}
