@@ -1,0 +1,118 @@
+
+<!DOCTYPE html>
+<html class="has-navbar-fixed-bottom">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Tasks Tracker | Mayank</title>
+  <link rel="shortcut icon" href="../images/fav_icon.png" type="image/x-icon">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
+  <!-- Bulma Version 0.7.1-->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.1/css/bulma.min.css" />
+  <link rel="stylesheet" type="text/css" href="/stylesheets/hero.css">
+  <link rel="stylesheet" href="https://unpkg.com/bulma-modal-fx/dist/css/modal-fx.min.css" />
+</head>
+<body>
+  <nav class="navbar is-link is-fixed-bottom">
+    <div class="container">
+      <div class="navbar-brand">
+        <a class="navbar-item" href="http://mayankv.com">
+          <img src="/images/logo.png" alt="Logo">
+        </a>
+        <span class="navbar-burger burger" data-target="navbarMenu">
+          <span></span>
+          <span></span>
+          <span></span>
+        </span>
+      </div>
+
+      <div id="navbarMenu" class="navbar-menu">
+        <div class="navbar-end">
+          <div class="navbar-item has-dropdown has-dropdown-up is-hoverable">
+            <a class="navbar-link" href="#">
+              Time to Work
+            </a>
+
+            <div class="navbar-dropdown">
+              <a class="navbar-item" href="#">
+                Books
+              </a>
+              <a class="navbar-item" href="#">
+                Tasks Report
+              </a>
+              <a class="navbar-item" href="#">
+                Tasks List
+              </a>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <section class="container">
+    <div class="columns features">
+      <div class="column">
+        <div class="card">
+          <div class="card-content">
+            <div id="ttw"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Scripts go here -->
+  <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script type="text/javascript">
+      google.charts.load('current', {'packages':['line']});
+      google.charts.setOnLoadCallback(drawChart);
+
+      function drawChart() {
+
+        var data = new google.visualization.DataTable();
+
+        data.addColumn('datetime', 'Date');
+        data.addColumn('number', 'Time (in mins)');
+
+        data.addRows([
+          <% ttw_data.forEach(function(workday){ %>
+            [new Date(<%- workday.year %>, <%- workday.month - 1 %>, <%- workday.day %>), <%- workday.time_taken %>],
+          <% }); %>
+        ]);
+
+        var options = {
+          chart: {
+            title: 'Time to Work',
+            subtitle: 'Time taken to reach EA from CCIC'
+          },
+          height: 600,
+          legend: {
+            position: 'none'
+          },
+          hAxis: {
+            format: 'MMM d, y',
+            viewWindow: {
+              min: new Date(2018, 4, 31),
+              max: new Date(2018, 7, 15)
+            },
+          },
+          vAxis: {
+            viewWindow: {
+              min: 25,
+              max: 40
+            }
+          }
+        };
+
+        var chart = new google.charts.Line(document.getElementById('ttw'));
+
+        chart.draw(data, google.charts.Line.convertOptions(options));
+      }
+    </script>
+
+</body>
+</html>
